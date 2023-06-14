@@ -62,7 +62,7 @@ function AddTweetTextArea() {
         />
         <button
           disabled={!textareaValue || textareaValue.length < 5 ? true : false}
-          className="btn bg-sky-600 hover:bg-sky-600/70 rounded-full text-white mt-4 border-0 disabled:bg-sky-800 disabled:text-white/50"
+          className="btn bg-sky-600 hover:bg-sky-600/70 rounded-full text-white mt-10 border-0 disabled:bg-sky-800 disabled:text-white/50"
           onClick={handleAddtweet}
         >
           Tweet

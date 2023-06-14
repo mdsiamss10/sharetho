@@ -2,6 +2,7 @@
 
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsBookmarkStar } from "react-icons/bs";
 import { CgLogOut, CgProfile } from "react-icons/cg";
@@ -18,47 +19,46 @@ const btns = [
     btnText: "",
     mainIcon: true,
     onClick: () => {},
-    href: "/",
   },
   {
-    id: 1,
+    id: 2,
     IconName: TiHome,
     btnText: "Home",
     onClick: () => {},
     href: "/",
   },
   {
-    id: 1,
+    id: 3,
     IconName: AiOutlineSearch,
     btnText: "Explore",
     onClick: () => {},
   },
   {
-    id: 1,
+    id: 4,
     IconName: IoNotificationsOutline,
     btnText: "Notifications",
     onClick: () => {},
   },
   {
-    id: 1,
+    id: 5,
     IconName: MdOutlineMarkEmailUnread,
     btnText: "Messages",
     onClick: () => {},
   },
   {
-    id: 1,
+    id: 6,
     IconName: CiViewList,
     btnText: "Lists",
     onClick: () => {},
   },
   {
-    id: 1,
+    id: 7,
     IconName: BsBookmarkStar,
     btnText: "Bookmarks",
     onClick: () => {},
   },
   {
-    id: 1,
+    id: 8,
     IconName: CgProfile,
     btnText: "Profile",
     onClick: () => {},
@@ -68,43 +68,45 @@ const btns = [
 
 function LeftSide() {
   const { data } = useSession();
+  const pathname = usePathname();
+
   return (
     <>
-      <div className="flex flex-col items-end md:item-start py-3 min-h-[100dvh] max-h-[100dvh] no-scrollbar overflow-auto justify-between">
-        <div className="flex flex-col items-center md:items-start">
+      <div className="flex flex-col items-end md:item-center p-3 min-h-[100dvh] max-h-[100dvh] no-scrollbar overflow-auto justify-between">
+        <div className="flex flex-col items-end sm:items-start">
           {btns.map((btn) => (
-            <>
-              <Link
-                href={btn.href || ""}
-                key={btn.id}
+            <Link href={btn.href || ""} key={btn.id}>
+              <div
                 className={`flex ${
                   !btn.href
-                    ? "select-none text-white/40 cursor-default"
+                    ? "select-none text-white/50 cursor-default"
                     : "text-white"
                 } cursor-pointer items-end ${
-                  !btn.mainIcon ? "p-4 md:px-5 gap-4" : "p-5"
+                  !btn.mainIcon ? "p-4 md:px-5 gap-4" : "p-4  py-5"
+                } ${btn.href ? "hover:bg-white/10" : ""} ${
+                  pathname === btn.href ? "bg-white/10" : ""
                 } ${
-                  btn.href ? "hover:bg-white/10" : ""
-                } rounded-full transition w-fit`}
+                  !btn.mainIcon && pathname === btn.href ? "text-3xl" : ""
+                } rounded-full transition w-fit items-center`}
               >
                 <btn.IconName
-                  className={`text-2xl ${btn.mainIcon && "text-3xl"}`}
+                  className={`text-2xl ${
+                    btn.mainIcon && "text-white text-3xl"
+                  }`}
                 />
-                <h1 className="text-xl hidden md:inline-block">
-                  {btn.btnText}
-                </h1>
-              </Link>
-            </>
+                <h1 className="text-xl hidden sm:inline">{btn.btnText}</h1>
+              </div>
+            </Link>
           ))}
         </div>
 
         <button
           // @ts-ignore
           onClick={() => window.logout_modal.showModal()}
-          className="btn mb-5 bg-red-600 border-0 hover:bg-red-600/70 ml-0 w-14 h-14 md:w-full md:h-auto rounded-full text-white"
+          className="btn mb-5 bg-red-600 mt-3 border-0 hover:bg-red-600/70 ml-0 w-14 h-14 sm:w-full sm:h-auto rounded-full text-white"
         >
           <CgLogOut className="text-xl" />
-          <span className="hidden md:inline-block">LOGOUT</span>
+          <span className="hidden sm:inline-block">LOGOUT</span>
         </button>
         <dialog id="logout_modal" className="modal">
           <form method="dialog" className="modal-box">

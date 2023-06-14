@@ -11,5 +11,22 @@ export type TweetType = Prisma.TweetGetPayload<{
         commentAuthor: true;
       };
     };
+    likes: true;
+  };
+}>;
+
+export type OtherProfileType = Prisma.UserGetPayload<{
+  include: {
+    tweets: {
+      include: {
+        likes: true;
+        author: true;
+        comments: {
+          include: {
+            commentAuthor: true;
+          };
+        };
+      };
+    };
   };
 }>;

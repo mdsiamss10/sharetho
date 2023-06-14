@@ -61,9 +61,10 @@ model Tweet {
   published Boolean   @default(false)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  author    User      @relation(fields: [authorId], references: [id])
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId  String
   comments  Comment[]
+  likes     Like[]
 }
 
 model Comment {
@@ -74,4 +75,11 @@ model Comment {
   commentAuthorId String
   tweet           Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
   tweetId         String
+}
+
+model Like {
+  id             String @id @default(cuid())
+  likedUserEmail String
+  tweet          Tweet  @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweetId        String
 }
