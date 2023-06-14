@@ -4,13 +4,7 @@ import Image from "next/image";
 import BlueTick from "./BlueTick";
 import SmallDot from "./SmallDot";
 
-function TweetCard({
-  tweet,
-  author,
-  comments,
-  likedArray,
-  createdAt,
-}: TweetType) {
+function TweetCard({ tweet, author, comments, createdAt }: TweetType) {
   if (author.email == "ohiduzzamansiam@gmail.com") {
     author.isVerified = true;
   }
