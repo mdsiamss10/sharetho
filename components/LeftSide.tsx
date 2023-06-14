@@ -1,6 +1,7 @@
 "use client";
 
 import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsBookmarkStar } from "react-icons/bs";
 import { CgLogOut, CgProfile } from "react-icons/cg";
@@ -17,12 +18,14 @@ const btns = [
     btnText: "",
     mainIcon: true,
     onClick: () => {},
+    href: "/",
   },
   {
     id: 1,
     IconName: TiHome,
     btnText: "Home",
     onClick: () => {},
+    href: "/",
   },
   {
     id: 1,
@@ -59,6 +62,7 @@ const btns = [
     IconName: CgProfile,
     btnText: "Profile",
     onClick: () => {},
+    href: "/profile",
   },
 ];
 
@@ -70,11 +74,18 @@ function LeftSide() {
         <div className="flex flex-col items-center md:items-start">
           {btns.map((btn) => (
             <>
-              <div
+              <Link
+                href={btn.href || ""}
                 key={btn.id}
-                className={`flex select-none text-white cursor-pointer items-end ${
+                className={`flex ${
+                  !btn.href
+                    ? "select-none text-white/40 cursor-default"
+                    : "text-white"
+                } cursor-pointer items-end ${
                   !btn.mainIcon ? "p-4 md:px-5 gap-4" : "p-5"
-                } hover:bg-white/10 rounded-full transition w-fit`}
+                } ${
+                  btn.href ? "hover:bg-white/10" : ""
+                } rounded-full transition w-fit`}
               >
                 <btn.IconName
                   className={`text-2xl ${btn.mainIcon && "text-3xl"}`}
@@ -82,7 +93,7 @@ function LeftSide() {
                 <h1 className="text-xl hidden md:inline-block">
                   {btn.btnText}
                 </h1>
-              </div>
+              </Link>
             </>
           ))}
         </div>

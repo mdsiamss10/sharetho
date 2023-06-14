@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "./globals.css";
 
 import LeftSide from "@/components/LeftSide";
+import MiddleNavTop from "@/components/MiddleNavTop";
 import LoginPage from "@/components/pages/LoginPage";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
@@ -35,6 +36,7 @@ export default async function RootLayout({
                   </div>
                   {/* Middle Side */}
                   <div className="border-x border-gray-600 flex-[4] md:flex-[2] overflow-auto no-scrollbar">
+                    <MiddleNavTop />
                     {children}
                   </div>
                   {/* Right Side */}
